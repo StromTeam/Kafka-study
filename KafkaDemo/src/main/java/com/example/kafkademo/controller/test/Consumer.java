@@ -15,7 +15,7 @@
  */
 
 
-package com.example.kafkademo.controller;
+package com.example.kafkademo.controller.test;
 
 import kafka.utils.ShutdownableThread;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -27,7 +27,7 @@ import java.util.Properties;
 
 /**
  * KAFKA 消费者
- * @author Wkaka
+ * @author Wakaka
  * @version 1.0
  * @date 2019/12/17 14:02
  */

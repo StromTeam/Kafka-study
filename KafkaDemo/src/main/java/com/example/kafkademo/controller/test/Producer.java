@@ -15,14 +15,13 @@
  */
 
 
-package com.example.kafkademo.controller;
+package com.example.kafkademo.controller.test;
 
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
-import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -53,28 +52,18 @@ public class Producer {
         ProducerRecord<Integer,String> record2 = new ProducerRecord<>("city",1,"北京");
         //指定主题要写入的的patition
 
-        for (int messageNo = 1; messageNo < 10; messageNo++){
-            ProducerRecord<Integer,String> record3 = new ProducerRecord<>("city",1,1,"北京-"+messageNo);
-            kafkaProducer.send(record3, new Callback() {
-                //RecordMetadata 元数据 消息主题、key、消息本身
-                @Override
-                public void onCompletion(RecordMetadata recordMetadata, Exception e) {
-                    System.out.println("partition: "+recordMetadata.partition());
-                    System.out.println("topic: "+recordMetadata.topic());
-                    System.out.println("offset: "+recordMetadata.offset());
-                }
-            });
-        }
+        ProducerRecord<Integer,String> record3 = new ProducerRecord<>("city",1,1,"北京");
+        kafkaProducer.send(record3, new Callback() {
+            //RecordMetadata 元数据 消息主题、key、消息本身
+            @Override
+            public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+                System.out.println("partition: "+recordMetadata.partition());
+                System.out.println("topic: "+recordMetadata.topic());
+                System.out.println("offset: "+recordMetadata.offset());
+            }
+        });
+
 
     }
 
-    public static void main(String[] args) throws IOException {
-        Producer producer = new Producer();
-        for (int messageNo = 1; messageNo < 10; messageNo++){
-            producer.sendMsg();
-         }
-        //发布过程是一个异步过程，所以不让主线程结束
-        //否则消息无法发送
-        //System.in.read();
-    }
 }

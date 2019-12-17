@@ -17,15 +17,19 @@
 
 package com.example.kafkademo.controller;
 
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  * @author BaoFeng
  * @version 1.0
- * @date 2019/12/17 16:59
+ * @date 2019/12/17 18:06
  */
-public class KafkaConsumerTest {
+@RestController
+public class ConsumerController {
 
-    public static void main(String[] args) {
-        Consumer consumer = new Consumer();
-        consumer.start();
+    @KafkaListener(topics = "${kafka.topic}")
+    public void onMsg(String messge){
+        System.out.println("Kafka 消费者接收到消息"+messge);
     }
 }
